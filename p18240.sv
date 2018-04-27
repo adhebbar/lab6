@@ -54,6 +54,7 @@ module p18240_top(
   logic [3:0]  condCodes;                // condition codes (Z,C,N,V)
   logic [2:0]  regSelA, regSelB;         // destination, source
   logic [15:0] aluSrc1, aluSrc2, aluOut, pc, ir, sp, memAddr, memData;
+  logic [1:0] windowOp;
   logic [127:0] regView;
   logic [15:0] r7, r6, r5, r4, r3, r2, r1, r0;
   opcode_t currState, nextState;
@@ -82,12 +83,14 @@ module p18240_top(
    
    controlpath cp(
                  .out(cPts),
+
                  .CCin(condCodes),
                  .IRIn(ir),
                  .clock(clock),
                  .reset_L(reset_L),
                  .currState(currState),
-                 .nextState(nextState));
+                 .nextState(nextState),
+                 .windowOp(windowOp));
    
    datapath dp(
               .ir(ir),
@@ -105,7 +108,8 @@ module p18240_top(
               .regSelB(regSelB),
               .cPts(cPts),
               .clock(clock),
-              .reset_L(reset_L));
+              .reset_L(reset_L),
+              .windowOp(windowOp));
 
    memorySystem mem(
                    .data(dataBus), 

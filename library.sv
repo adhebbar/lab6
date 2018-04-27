@@ -124,6 +124,20 @@ endmodule
  * A pretty standard 8-to-1, parameterized MUX.  Based upon the select 
  * line, the proper input word becomes valid on the output.
  */
+
+module counter #(parameter WIDTH = 16)
+  (input  logic clock, reset_L,
+   input  logic en, up,
+   output logic [WIDTH-1:0] Q);
+ 
+  always_ff @(posedge clock, negedge reset_L)
+    if (~reset_L) Q <= 0;
+    else if (en)
+      if (up) Q <= Q+1;
+      else Q <= Q-1;
+    else Q <= Q;
+endmodule : counter
+
 module mux8to1 #(parameter WIDTH = 16) (
    input  logic [WIDTH-1:0] inA, inB, inC, inD, inE, inF, inG, inH,
    output logic [WIDTH-1:0] out,

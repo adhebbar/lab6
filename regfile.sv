@@ -34,17 +34,51 @@ module reg_file(
    input [15:0]      in,
    input [2:0]       selA,
    input [2:0]       selB,
-   input [2:0]       window,
    input             load_L, 
    input             reset_L,
+   input[1:0]        windowOp,
    input             clock);
    
+
    logic [15:0] r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, 
                 r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29,
                 r30, r31;
    logic [31:0]  reg_enable_lines_L;
    logic [7:0] r_enable_lines_L; //only 8 
-   logic [7:0] wr0, wr1, wr2, wr3, wr4, wr5, wr6, wr7; //window registers
+   logic [15:0] wr0, wr1, wr2, wr3, wr4, wr5, wr6, wr7; //window registers
+   logic [2:0] window;
+   logic wReset_L, wEn, wUp;
+
+   //window register
+   counter #(.WIDTH(3)) reg_width(.clock(clock), .reset_L(wReset_L),
+                                     .en(wEn), .up(wUp),
+                                   .Q(window));
+   always_comb begin
+    case(windowOp)
+      INCR_W:  begin
+        wEn = 1;
+        wUp = 1;
+        wReset_L = 1;
+      end
+      DECR_W:  begin
+        wEn = 1;
+        wUp = 0;
+        wReset_L = 1;
+      end
+      NO_OP: begin
+        wEn = 0;
+        wUp = 1;
+        wReset_L = 1;
+      end
+      RESET:  begin
+        wEn = 1;
+        wUp = 1;
+        wReset_L = 0;
+      end
+    endcase
+   end
+
+   //registers
    
    register #(.WIDTH(16)) reg0(.out(r0), .in(in), .load_L(reg_enable_lines_L[0]),
                                .clock(clock), .reset_L(reset_L));
@@ -120,6 +154,7 @@ module reg_file(
                               .out(outB), .sel(selB)); //output reg B
     assign outView = {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0}; //window  registers
 
+
    always_comb begin
     case (window)    
       3'd0: begin //window 0 
@@ -136,7 +171,7 @@ module reg_file(
       end
       3'd3: begin //window 3
         {reg_enable_lines_L[19:16]} = r_enable_lines_L;
-        assign  {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r11, r10, r9, r8, r7, r6, r5, r4};
+        assign  {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r19, r18, r17, r16, r15, r14, r13, r12};
       end
       3'd4: begin //window 4
         {reg_enable_lines_L[23:20]} = r_enable_lines_L;

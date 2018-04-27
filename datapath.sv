@@ -37,13 +37,13 @@ module datapath (
    output [2:0]  regSelB,
    input controlPts  cPts,
    input         clock,
-   input         reset_L);
+   input         reset_L,
+   input [1:0] windowOp);
 
    logic [15:0] regA, regB;
    logic [15:0] memOut;
    logic [3:0]  newCC;
    logic loadReg_L, loadSP_L, loadPC_L, loadMDR_L, writeMD_L, loadMAR_L, loadIR_L;
-   logic window;
    tri [15:0] newMDR;
    
    // Assign wires
@@ -61,7 +61,8 @@ module datapath (
            .selA(ir[5:3]),
            .selB(ir[2:0]),
            .clock(clock),
-           .reset_L(reset_L));
+           .reset_L(reset_L),
+           .windowOp(windowOp));
    
    tridrive #(.WIDTH(16)) a(.data(aluResult), .bus(newMDR), .en_L(writeMD_L)),
                           b(.data(dataBus), .bus(newMDR), .en_L(cPts.re_L)),

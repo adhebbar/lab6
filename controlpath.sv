@@ -24,7 +24,7 @@
  * 13 Nov 2010: Modified to use static instead of dynamic casting (abeera)
  * 23 Apr 2012: Modified to have two stop states, the first decrements PC, per ISA (leifan)
  */
-
+`default_nettype none
 `include "constants.sv"
 
 /*
@@ -38,11 +38,13 @@ module controlpath (
    input [3:0]       CCin,
    input [15:0]      IRIn,
    output controlPts out,
+   output logic [1:0]  windowOp,
    output opcode_t currState,
    output opcode_t nextState,
    input             clock,
    input             reset_L);
   
+   logic out;
    always_ff @(posedge clock or negedge reset_L)
      if (~reset_L)
        currState <= START;
@@ -53,10 +55,27 @@ module controlpath (
    // {ALU fn, AmuxSel, BmuxSel, DestDecode, CCLoad, RE, WE}
 
    always_comb begin
+    case(currState)
+      START : windowOp = RESET;
+      JSRW  : windowOp = INCR_W;
+      RTNW  : windowOp = DECR_W;
+      default: windowOp = NO_OP;
+   endcase
+ end
+
+   always_comb begin
       case (currState)
         START: begin
           out = {F_A, MUX_PC, 2'bxx, DEST_MAR, NO_LOAD, NO_RD, NO_WR};
-          nextState = FETCH
+          nextState = FETCH;
+        end
+        JSRW: begin
+          out = {F_A_MINUS_1, MUX_SP,2'bxx, DEST_SP, NO_LOAD, NO_RD, NO_WR}; //? copied from JSR
+          nextState = JSR;
+        end
+        RTNW: begin
+          out = {F_A, MUX_SP, 2'bxx, DEST_MAR, NO_LOAD, NO_RD, NO_WR}; //? copied from RTN
+          nextState = RTN;
         end
         FETCH: begin
            out = {F_A, MUX_PC, 2'bxx, DEST_MAR, NO_LOAD, NO_RD, NO_WR};

@@ -78,15 +78,19 @@ typedef enum logic{ // Condition code
    NO_LOAD       = 1'b1
 } cond_code_t; // Condition code
 
-typedef enum logic{ // register window
-   INCR       = 2'b00,
-   DECR       = 2'b01,
+typedef enum logic [1:0]{ // register window
+   INCR_W       = 2'b00,
+   DECR_W       = 2'b01,
    NO_OP      = 2'b10,
    RESET      = 2'b11
 } reg_window_t; // register window
 
 typedef enum logic [9:0] {
 // Microcode operations (i.e., FSM states)
+   START  = 10'b10_0000_0000,
+   JSRW   = 10'b00_1100_0100,
+   RTNW   = 10'b00_1100_0101,
+
    FETCH  = 10'b00_0000_0000,
    FETCH1 = 10'b00_0000_0001,
    FETCH2 = 10'b00_0000_0010,
@@ -204,6 +208,7 @@ typedef enum logic [9:0] {
 
 typedef struct packed 
 {
+   reg_window_t reg_window;
    alu_op_t alu_op;
    alu_mux_t srcA;
    alu_mux_t srcB;

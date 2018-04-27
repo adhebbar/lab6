@@ -1,0 +1,47 @@
+{
+    "Modules": {
+        "memory256x16": {},
+        "...MASTER...": {},
+        "register": {},
+        "std": {},
+        "_vcs_unit__145105347": {},
+        "memory256x16_program": {},
+        "SevenSegmentDigit": {},
+        "p18240_top": {
+            "Compiled": "Yes",
+            "Compiled Times": 4
+        }
+    },
+    "ObjArchives": [
+        {
+            "archive": "archive.14/_94018_archive_1.a",
+            "size": 127266,
+            "objects": [
+                [
+                    "amcQw_d.o",
+                    9679
+                ],
+                [
+                    "KP7dQ_d.o",
+                    117587
+                ]
+            ]
+        }
+    ],
+    "CompUnits": {
+        "amcQw_d": {
+            "bytes": 9679,
+            "mod": "...MASTER...",
+            "out": "amcQw_d.o",
+            "mode": 4,
+            "archive": "archive.14/_94018_archive_1.a"
+        },
+        "KP7dQ_d": {
+            "bytes": 117587,
+            "mod": "p18240_top",
+            "out": "KP7dQ_d.o",
+            "mode": 4,
+            "archive": "archive.14/_94018_archive_1.a"
+        }
+    }
+}
