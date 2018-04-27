@@ -1,0 +1,9 @@
+rc file Version 1.0
+
+[Design]
+COMPILE_PATH=/afs/ece.cmu.edu/usr/ahebbar/Private/lab6/lab6
+SystemC=FALSE
+UUM=FALSE
+KDB=FALSE
+USE_NOVAS_HOME=FALSE
+TOP=reg_file memory256x16 memory256x16_program tridrive mux4to1 SevenSegmentControl 

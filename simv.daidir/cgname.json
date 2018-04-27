@@ -1,0 +1,42 @@
+{
+    "_vcs_unit__1717236854": [
+        "_vcs_unit__1717236854",
+        "dRcmL",
+        "module"
+    ],
+    "...MASTER...": [
+        "SIM",
+        "amcQw",
+        "module"
+    ],
+    "register": [
+        "register",
+        "DAC4W",
+        "module"
+    ],
+    "memory256x16_program": [
+        "memory256x16_program",
+        "N6eCF",
+        "module"
+    ],
+    "memory256x16": [
+        "memory256x16",
+        "YCPVc",
+        "module"
+    ],
+    "std": [
+        "std",
+        "reYIK",
+        "module"
+    ],
+    "p18240_top": [
+        "p18240_top",
+        "KP7dQ",
+        "module"
+    ],
+    "SevenSegmentDigit": [
+        "SevenSegmentDigit",
+        "wDpck",
+        "module"
+    ]
+}

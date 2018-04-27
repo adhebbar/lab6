@@ -1,0 +1,149 @@
+{
+    "PEModules": [],
+    "MlibObjs": {},
+    "CurCompileUdps": {},
+    "CurCompileModules": [
+        "...MASTER...",
+        "p18240_top"
+    ],
+    "LVLData": [
+        "SIM"
+    ],
+    "CompileProcesses": [
+        "cgproc.79519.json"
+    ],
+    "PrevCompiledModules": {
+        "memory256x16": {
+            "YCPVc_d": {
+                "bytes": 8956,
+                "mod": "memory256x16",
+                "out": "YCPVc_d.o",
+                "mode": 4,
+                "archive": "archive.5/_prev_archive_1.a"
+            }
+        },
+        "...MASTER...": {
+            "amcQw_d": {
+                "bytes": 9679,
+                "mod": "...MASTER...",
+                "out": "amcQw_d.o",
+                "mode": 4,
+                "archive": "archive.5/_79519_archive_1.a"
+            }
+        },
+        "std": {
+            "reYIK_d": {
+                "bytes": 29004,
+                "mod": "std",
+                "out": "reYIK_d.o",
+                "mode": 4,
+                "archive": "archive.5/_prev_archive_1.a"
+            }
+        },
+        "_vcs_unit__1717236854": {
+            "dRcmL_d": {
+                "bytes": 21713,
+                "mod": "_vcs_unit__1717236854",
+                "out": "dRcmL_d.o",
+                "mode": 4,
+                "archive": "archive.5/_prev_archive_1.a"
+            }
+        },
+        "SevenSegmentDigit": {
+            "wDpck_d": {
+                "bytes": 10145,
+                "mod": "SevenSegmentDigit",
+                "out": "wDpck_d.o",
+                "mode": 4,
+                "archive": "archive.5/_prev_archive_1.a"
+            }
+        },
+        "p18240_top": {
+            "KP7dQ_d": {
+                "bytes": 115082,
+                "mod": "p18240_top",
+                "out": "KP7dQ_d.o",
+                "mode": 4,
+                "archive": "archive.5/_79519_archive_1.a"
+            }
+        },
+        "memory256x16_program": {
+            "N6eCF_d": {
+                "bytes": 10027,
+                "mod": "memory256x16_program",
+                "out": "N6eCF_d.o",
+                "mode": 4,
+                "archive": "archive.5/_prev_archive_1.a"
+            }
+        },
+        "register": {
+            "DAC4W_d": {
+                "bytes": 7729,
+                "mod": "register",
+                "out": "DAC4W_d.o",
+                "mode": 4,
+                "archive": "archive.5/_prev_archive_1.a"
+            }
+        }
+    },
+    "NameTable": {
+        "_vcs_unit__1717236854": [
+            "_vcs_unit__1717236854",
+            "dRcmL",
+            "module"
+        ],
+        "...MASTER...": [
+            "SIM",
+            "amcQw",
+            "module"
+        ],
+        "std": [
+            "std",
+            "reYIK",
+            "module"
+        ],
+        "memory256x16": [
+            "memory256x16",
+            "YCPVc",
+            "module"
+        ],
+        "register": [
+            "register",
+            "DAC4W",
+            "module"
+        ],
+        "memory256x16_program": [
+            "memory256x16_program",
+            "N6eCF",
+            "module"
+        ],
+        "SevenSegmentDigit": [
+            "SevenSegmentDigit",
+            "wDpck",
+            "module"
+        ],
+        "p18240_top": [
+            "p18240_top",
+            "KP7dQ",
+            "module"
+        ]
+    },
+    "CompileStrategy": "fullobj",
+    "stat": {
+        "nMops": 10905
+    },
+    "SIMBData": {
+        "out": "amcQwB.o",
+        "bytes": 61962
+    },
+    "Misc": {
+        "archive_dir": "archive.5",
+        "csrc": "csrc",
+        "cwd": "/afs/ece.cmu.edu/usr/ahebbar/Private/lab6/lab6",
+        "csrc_abs": "/afs/ece.cmu.edu/usr/ahebbar/Private/lab6/lab6/csrc",
+        "daidir_abs": "/afs/ece.cmu.edu/usr/ahebbar/Private/lab6/lab6/simv.daidir",
+        "daidir": "simv.daidir",
+        "default_output_dir": "csrc"
+    },
+    "CompileStatus": "Successful"
+}
