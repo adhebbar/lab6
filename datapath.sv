@@ -35,10 +35,10 @@ module datapath (
    inout  [15:0] dataBus,
    output [2:0]  regSelA,
    output [2:0]  regSelB,
-   input controlPts  cPts,
+   input controlPts cPts,
    input         clock,
    input         reset_L,
-   input [1:0] windowOp);
+   input reg_window_t windowOp);
 
    logic [15:0] regA, regB;
    logic [15:0] memOut;

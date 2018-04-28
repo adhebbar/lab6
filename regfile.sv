@@ -34,9 +34,9 @@ module reg_file(
    input [15:0]      in,
    input [2:0]       selA,
    input [2:0]       selB,
+   input reg_window_t  windowOp,
    input             load_L, 
    input             reset_L,
-   input[1:0]        windowOp,
    input             clock);
    
 
@@ -152,42 +152,48 @@ module reg_file(
                               .out(outA), .sel(selA)); //output reg A
     mux8to1 #(.WIDTH(16)) muxB(.inA(wr0), .inB(wr1), .inC(wr2), .inD(wr3), .inE(wr4), .inF(wr5), .inG(wr6), .inH(wr7), 
                               .out(outB), .sel(selB)); //output reg B
-    assign outView = {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0}; //window  registers
-
+    assign outView = {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0}; //window registers
 
    always_comb begin
     case (window)    
-      3'd0: begin //window 0 
-        {reg_enable_lines_L[7:0]} = r_enable_lines_L;
-        assign  {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r7, r6, r5, r4, r3, r2, r1, r0};
+      3'd0: begin //window 0
+        reg_enable_lines_L = 32'b11111111111111111111111111111111;
+        reg_enable_lines_L[7:0] = r_enable_lines_L;
+        {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r7, r6, r5, r4, r3, r2, r1, r0};
       end
       3'd1: begin //window 1 
-        {reg_enable_lines_L[11:4]} = r_enable_lines_L;
-        assign  {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r11, r10, r9, r8, r7, r6, r5, r4};
+        reg_enable_lines_L = 32'b11111111111111111111111111111111;
+        reg_enable_lines_L[11:4] = r_enable_lines_L;
+        {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r11, r10, r9, r8, r7, r6, r5, r4};
       end
-      3'd2: begin //window 2 
-        {reg_enable_lines_L[15:8]} = r_enable_lines_L;
-        assign  {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r15, r14, r13, r12, r11, r10, r9, r8};
+      3'd2: begin //window 2
+        reg_enable_lines_L = 32'b11111111111111111111111111111111;
+        reg_enable_lines_L[15:8] = r_enable_lines_L;
+        {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r15, r14, r13, r12, r11, r10, r9, r8};
       end
       3'd3: begin //window 3
-        {reg_enable_lines_L[19:16]} = r_enable_lines_L;
-        assign  {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r19, r18, r17, r16, r15, r14, r13, r12};
+        reg_enable_lines_L = 32'b11111111111111111111111111111111;
+        reg_enable_lines_L[19:12] = r_enable_lines_L;
+        {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r19, r18, r17, r16, r15, r14, r13, r12};
       end
       3'd4: begin //window 4
-        {reg_enable_lines_L[23:20]} = r_enable_lines_L;
-        assign  {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r23, r22, r21, r20, r19, r18, r17, r16};
+        reg_enable_lines_L = 32'b11111111111111111111111111111111;
+        reg_enable_lines_L[23:16] = r_enable_lines_L;
+        {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r23, r22, r21, r20, r19, r18, r17, r16};
       end
       3'd5: begin //window 5
-        {reg_enable_lines_L[27:24]} = r_enable_lines_L;
-        assign  {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r27, r26, r25, r24, r23, r22, r21, r20};
+        reg_enable_lines_L = 32'b11111111111111111111111111111111;
+        reg_enable_lines_L[27:20] = r_enable_lines_L;
+        {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r27, r26, r25, r24, r23, r22, r21, r20};
       end
-      3'd6: begin //window 5
-        {reg_enable_lines_L[31:27]} = r_enable_lines_L;
-        assign  {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r31, r30, r29, r28, r27, r26, r25, r24};
+      3'd6: begin //window 6
+        reg_enable_lines_L = 32'b11111111111111111111111111111111;
+        reg_enable_lines_L[31:24] = r_enable_lines_L;
+        {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r31, r30, r29, r28, r27, r26, r25, r24};
       end
       default: begin //assume window is 0 
-        {reg_enable_lines_L[7:0]} = r_enable_lines_L;
-        assign  {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r7, r6, r5, r4, r3, r2, r1, r0};
+        reg_enable_lines_L[7:0] = r_enable_lines_L;
+        {wr7, wr6, wr5, wr4, wr3, wr2, wr1, wr0} = {r7, r6, r5, r4, r3, r2, r1, r0};
       end
     endcase
    end

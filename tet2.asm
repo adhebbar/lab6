@@ -4,7 +4,7 @@
         BRA     INITN      ; branch to the first line of your main code
       
         .ORG    $0100
-INITN   LDI     R4, $2     ; store n in R1
+INITN   LDI     R4, $3     ; store n in R1
         BRA     MAIN       ; branch to main code at $0200
         
         .ORG    $0200

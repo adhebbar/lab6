@@ -24,6 +24,13 @@
 `ifndef sv_CONSTANTS
 `define sv_CONSTANTS
 
+typedef enum logic [1:0]{ // register window
+   INCR_W       = 2'b00,
+   DECR_W       = 2'b01,
+   NO_OP      = 2'b10,
+   RESET      = 2'b11
+} reg_window_t; // register window
+
 typedef enum logic[3:0]{ // ALU operation select
    F_A           = 4'b0000,
    F_A_PLUS_1    = 4'b0001,
@@ -77,13 +84,6 @@ typedef enum logic{ // Condition code
    LOAD_CC       = 1'b0,
    NO_LOAD       = 1'b1
 } cond_code_t; // Condition code
-
-typedef enum logic [1:0]{ // register window
-   INCR_W       = 2'b00,
-   DECR_W       = 2'b01,
-   NO_OP      = 2'b10,
-   RESET      = 2'b11
-} reg_window_t; // register window
 
 typedef enum logic [9:0] {
 // Microcode operations (i.e., FSM states)
