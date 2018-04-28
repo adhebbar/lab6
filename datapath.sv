@@ -35,10 +35,12 @@ module datapath (
    inout  [15:0] dataBus,
    output [2:0]  regSelA,
    output [2:0]  regSelB,
-   input controlPts  cPts,
+   input controlPts cPts,
    input         clock,
    input         reset_L,
-   input [1:0] windowOp);
+   input reg_window_t windowOp,
+   input jsr_ctr_t jsrOp,
+   output          w,y);
 
    logic [15:0] regA, regB;
    logic [15:0] memOut;
@@ -62,7 +64,10 @@ module datapath (
            .selB(ir[2:0]),
            .clock(clock),
            .reset_L(reset_L),
-           .windowOp(windowOp));
+           .windowOp(windowOp),
+           .jsrOp(jsrOp),
+           .w(w),
+           .y(y));
    
    tridrive #(.WIDTH(16)) a(.data(aluResult), .bus(newMDR), .en_L(writeMD_L)),
                           b(.data(dataBus), .bus(newMDR), .en_L(cPts.re_L)),

@@ -24,6 +24,20 @@
 `ifndef sv_CONSTANTS
 `define sv_CONSTANTS
 
+typedef enum logic [1:0]{ // jsr counter
+   INCR_J       = 2'b00,
+   DECR_J       = 2'b01,
+   NO_OP_J      = 2'b10,
+   RESET_J      = 2'b11
+} jsr_ctr_t; // register window
+
+typedef enum logic [1:0]{ // register window
+   INCR_W       = 2'b00,
+   DECR_W       = 2'b01,
+   NO_OP_W      = 2'b10,
+   RESET_W      = 2'b11
+} reg_window_t; // register window
+
 typedef enum logic[3:0]{ // ALU operation select
    F_A           = 4'b0000,
    F_A_PLUS_1    = 4'b0001,
@@ -78,18 +92,13 @@ typedef enum logic{ // Condition code
    NO_LOAD       = 1'b1
 } cond_code_t; // Condition code
 
-typedef enum logic [1:0]{ // register window
-   INCR_W       = 2'b00,
-   DECR_W       = 2'b01,
-   NO_OP      = 2'b10,
-   RESET      = 2'b11
-} reg_window_t; // register window
-
 typedef enum logic [9:0] {
 // Microcode operations (i.e., FSM states)
    START  = 10'b10_0000_0000,
    JSRW   = 10'b00_1100_0100,
    RTNW   = 10'b00_1100_0101,
+   BRW    = 10'b00_1100_0110,
+   BRY    = 10'b00_1100_0111,
 
    FETCH  = 10'b00_0000_0000,
    FETCH1 = 10'b00_0000_0001,

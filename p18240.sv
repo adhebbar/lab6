@@ -51,10 +51,12 @@ module p18240_top(
     
    
   controlPts cPts;               // control points
+  reg_window_t windowOp;
+  jsr_ctr_t    jsrOp;
+  logic w,y;
   logic [3:0]  condCodes;                // condition codes (Z,C,N,V)
   logic [2:0]  regSelA, regSelB;         // destination, source
   logic [15:0] aluSrc1, aluSrc2, aluOut, pc, ir, sp, memAddr, memData;
-  logic [1:0] windowOp;
   logic [127:0] regView;
   logic [15:0] r7, r6, r5, r4, r3, r2, r1, r0;
   opcode_t currState, nextState;
@@ -83,14 +85,16 @@ module p18240_top(
    
    controlpath cp(
                  .out(cPts),
-
+                 .windowOp(windowOp),
+                 .w(w),
+                 .y(y),
+                 .jsrOp(jsrOp),
                  .CCin(condCodes),
                  .IRIn(ir),
                  .clock(clock),
                  .reset_L(reset_L),
                  .currState(currState),
-                 .nextState(nextState),
-                 .windowOp(windowOp));
+                 .nextState(nextState));
    
    datapath dp(
               .ir(ir),
@@ -109,7 +113,10 @@ module p18240_top(
               .cPts(cPts),
               .clock(clock),
               .reset_L(reset_L),
-              .windowOp(windowOp));
+              .windowOp(windowOp),
+              .jsrOp(jsrOp),
+              .w(w),
+              .y(y));
 
    memorySystem mem(
                    .data(dataBus), 
@@ -191,6 +198,7 @@ module p18240_top(
            aluSrc1, aluSrc2, aluOut);
       $display("PC:     0x%h  IR:     0x%h  SP:     0x%h", pc, ir, sp);
       $display("MAR:    0x%h  MDR     0x%h  ZCNV:   %b", memAddr, memData, condCodes);
+      $display("W:      %b       Y:      %b              ", w, y);
       $display("==================================================");
       cycle = cycle + 1;
       if (cycle > 50000)

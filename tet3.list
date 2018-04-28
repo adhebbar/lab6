@@ -1,0 +1,150 @@
+addr data   label     opcode  operands
+---- ----  --------   ------  --------
+0000 0C00             LDI     R0      
+0001 0000                     $0      
+0002 3C00             LDSP    R0      
+0003 2800             BRA             
+0004 0100                     INITN   
+0100 0C24  INITN      LDI     R4      
+0101 000A                     $A      
+0102 2800             BRA             
+0103 0200                     MAIN    
+0200 4424  MAIN       CMI     R4      
+0201 0049                     $49     
+0202 2C00             BRN             
+0203 0206                     RUN     
+0204 2800             BRA             
+0205 0208                     DONE    
+0206 3100  RUN        .DW     $3100   
+0207 1000             .DW     TET     
+0208 3A07  DONE       MOV     R0 R7   
+0209 3000             STOP            
+0600 0C3F  TRI        LDI     R7      
+0601 0000                     $0      
+0602 0C09             LDI     R1      
+0603 0000                     $0      
+0604 3180             .DW     $3180   
+0605 0614             .DW     WY      
+0606 0C1B             LDI     R3      
+0607 0000                     $0      
+0608 4400             CMI     R0      
+0609 0000                     $0      
+060A 2A00             BRZ             
+060B 0633                     END     
+060C 3A20             MOV     R4 R0   
+060D 1624             DECR    R4      
+060E 3100             .DW     $3100   
+060F 0600             .DW     TRI     
+0610 0E38             ADD     R7 R0   
+0611 3A1F             MOV     R3 R7   
+0612 2800             BRA             
+0613 0633                     END     
+0614 31C0  WY         .DW     $31C0   
+0615 0624             .DW     YY      
+0616 4400             CMI     R0      
+0617 0000                     $0      
+0618 2A00             BRZ             
+0619 0633                     END     
+061A 3A08             MOV     R1 R0   
+061B 1609             DECR    R1      
+061C 3209             PUSH    R1      
+061D 3600             JSR             
+061E 0600                     TRI     
+061F 3409             POP     R1      
+0620 0E38             ADD     R7 R0   
+0621 3A1F             MOV     R3 R7   
+0622 2800             BRA             
+0623 0633                     END     
+0624 3200  YY         PUSH    R0      
+0625 3209             PUSH    R1      
+0626 4000             LDSF    R0      
+0627 0003                     $3      
+0628 4400             CMI     R0      
+0629 0000                     $0      
+062A 2A00             BRZ             
+062B 0633                     END     
+062C 3A08             MOV     R1 R0   
+062D 1609             DECR    R1      
+062E 3209             PUSH    R1      
+062F 3600             JSR             
+0630 0600                     TRI     
+0631 3409             POP     R1      
+0632 0E38             ADD     R7 R0   
+0633 31C0  END        .DW     $31C0   
+0634 0636             .DW     Y       
+0635 3140             .DW     $3140   
+0636 3409  Y          POP     R1      
+0637 3400             POP     R0      
+0638 3800             RTN             
+1000 3180  TET        .DW     $3180   
+1001 1013             .DW     WYT     
+1002 0C1B             LDI     R3      
+1003 0000                     $0      
+1004 4400             CMI     R0      
+1005 0000                     $0      
+1006 2A00             BRZ             
+1007 1041                     ENDT    
+1008 3A20             MOV     R4 R0   
+1009 1624             DECR    R4      
+100A 3100             .DW     $3100   
+100B 1000             .DW     TET     
+100C 3A1F             MOV     R3 R7   
+100D 3A20             MOV     R4 R0   
+100E 3100             .DW     $3100   
+100F 0600             .DW     TRI     
+1010 0E1F             ADD     R3 R7   
+1011 2800             BRA             
+1012 1041                     ENDT    
+1013 31C0  WYT        .DW     $31C0   
+1014 102A             .DW     YYT     
+1015 4400             CMI     R0      
+1016 0000                     $0      
+1017 2A00             BRZ             
+1018 1041                     ENDT    
+1019 3A08             MOV     R1 R0   
+101A 1609             DECR    R1      
+101B 3209             PUSH    R1      
+101C 3600             JSR             
+101D 1000                     TET     
+101E 3409             POP     R1      
+101F 3A17             MOV     R2 R7   
+1020 0C3F             LDI     R7      
+1021 0000                     $0      
+1022 3200             PUSH    R0      
+1023 3600             JSR             
+1024 0600                     TRI     
+1025 3400             POP     R0      
+1026 0E3A             ADD     R7 R2   
+1027 3A1F             MOV     R3 R7   
+1028 2800             BRA             
+1029 1041                     ENDT    
+102A 3200  YYT        PUSH    R0      
+102B 3209             PUSH    R1      
+102C 3212             PUSH    R2      
+102D 4000             LDSF    R0      
+102E 0004                     $4      
+102F 4400             CMI     R0      
+1030 0000                     $0      
+1031 2A00             BRZ             
+1032 1041                     ENDT    
+1033 3A08             MOV     R1 R0   
+1034 1609             DECR    R1      
+1035 3209             PUSH    R1      
+1036 3600             JSR             
+1037 1000                     TET     
+1038 3409             POP     R1      
+1039 3A17             MOV     R2 R7   
+103A 0C3F             LDI     R7      
+103B 0000                     $0      
+103C 3200             PUSH    R0      
+103D 3600             JSR             
+103E 0600                     TRI     
+103F 3400             POP     R0      
+1040 0E3A             ADD     R7 R2   
+1041 31C0  ENDT       .DW     $31C0   
+1042 1044             .DW     YT      
+1043 3140             .DW     $3140   
+1044 3412  YT         POP     R2      
+1045 3409             POP     R1      
+1046 3400             POP     R0      
+1047 3800             RTN             

@@ -36,15 +36,16 @@
  */
 module controlpath (
    input [3:0]       CCin,
+   input             w,y,
    input [15:0]      IRIn,
    output controlPts out,
-   output logic [1:0]  windowOp,
+   output reg_window_t windowOp,
+   output jsr_ctr_t jsrOp,
    output opcode_t currState,
    output opcode_t nextState,
    input             clock,
    input             reset_L);
   
-   logic out;
    always_ff @(posedge clock or negedge reset_L)
      if (~reset_L)
        currState <= START;
@@ -56,10 +57,19 @@ module controlpath (
 
    always_comb begin
     case(currState)
-      START : windowOp = RESET;
+      START : jsrOp = RESET_J;
+      JSR   : jsrOp = INCR_J;
+      RTN   : jsrOp = DECR_J;
+      default: jsrOp = NO_OP_J;
+   endcase
+ end
+
+   always_comb begin
+    case(currState)
+      START : windowOp = RESET_W;
       JSRW  : windowOp = INCR_W;
       RTNW  : windowOp = DECR_W;
-      default: windowOp = NO_OP;
+      default: windowOp = NO_OP_W;
    endcase
  end
 
@@ -70,12 +80,26 @@ module controlpath (
           nextState = FETCH;
         end
         JSRW: begin
-          out = {F_A_MINUS_1, MUX_SP,2'bxx, DEST_SP, NO_LOAD, NO_RD, NO_WR}; //? copied from JSR
+          out = {F_A, MUX_SP, 2'bxx, DEST_SP, NO_LOAD, NO_RD, NO_WR}; //? copied from JSR
           nextState = JSR;
         end
         RTNW: begin
-          out = {F_A, MUX_SP, 2'bxx, DEST_MAR, NO_LOAD, NO_RD, NO_WR}; //? copied from RTN
+          out = {F_A, MUX_SP, 2'bxx, DEST_SP, NO_LOAD, NO_RD, NO_WR}; //? copied from RTN
           nextState = RTN;
+        end
+        BRW: begin
+           out = {F_A, MUX_PC,2'bxx, DEST_MAR, NO_LOAD, NO_RD, NO_WR};
+           if (w) 
+             nextState = BRN2;
+           else 
+             nextState = BRN1;
+        end
+        BRY: begin
+           out = {F_A, MUX_PC,2'bxx, DEST_MAR, NO_LOAD, NO_RD, NO_WR};
+           if (y) 
+             nextState = BRN2;
+           else 
+             nextState = BRN1;
         end
         FETCH: begin
            out = {F_A, MUX_PC, 2'bxx, DEST_MAR, NO_LOAD, NO_RD, NO_WR};
